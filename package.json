@@ -1,0 +1,14 @@
+{
+  "name": "gatewaysimulator",
+  "version": "1.0.0",
+  "description": "internal testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js IP PORT"
+  },
+  "author": "satya",
+  "license": "ISC",
+  "dependencies": {
+    "package.json": "^2.0.1"
+  }
+}
