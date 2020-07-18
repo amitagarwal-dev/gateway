@@ -7,7 +7,7 @@ module.exports.initGateway = function initGateway() {
 	return new Promise((resolved, rejected) => {
 		try {
 			if(process.argv.length != 2) {
-				throw 'USAGE : node index.js';
+				throw 'USAGE : node FIGSimulator.js';
 			}
 
 			if(appConfig.GATEWAYNAME.toUpperCase() != 'ITGS' && appConfig.GATEWAYNAME.toUpperCase() != 'ALIVE') {
