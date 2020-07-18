@@ -38,13 +38,17 @@ function frameResponseMsg(TransXpedia) {
                         TransXpedia.ISOMessage[62]              = Util.AUTHCODE;
 
                 if(appConfig.RESPONSECODE == '00') {
-                        TransXpedia.ISOMessage[102]     = '123456789012';
-                        TransXpedia.ISOMessage[104]     = '001006112233003009HDK410936004010Sri Ganesh075006Active';
-                }
 
-		TransXpedia.ISOMessage[125]             = TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6) + '|' +
-                                                	  TransXpedia.REQUEST_ISOMESSAGE[37].slice(-6) +
-                                                          TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6);
+                        TransXpedia.ISOMessage[102]     = '123456789012';
+
+			if(TransXpedia.REQUEST_TYPE == 'MULTIPLE AADHAAR ENQUIRY')
+                        	TransXpedia.ISOMessage[104]     = '079064123456|1234567|47382473827824|amit agarwal|849328492384392|ullas';
+			else 
+                        	TransXpedia.ISOMessage[104]     = '001006112233003009HDK410936004010Sri Ganesh075006Active';
+                }
+                
+                TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(5,10) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,5) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(-2);
+		TransXpedia.ISOMessage[125]   = TransXpedia.ISOMessage[125].slice(-6) + '|' + TransXpedia.ISOMessage[125];
 
                 return resolved(TransXpedia);
        	}catch (e) {
@@ -59,8 +63,13 @@ function frameResponseMsg(TransXpedia) {
 function getRequestType(TransXpedia) {
 	return new Promise((resolved, rejected) => { 
 		try {
-		    if(TransXpedia.REQUEST_ISOMESSAGE[111] != undefined && TransXpedia.REQUEST_ISOMESSAGE[121] != undefined)
-                        TransXpedia.REQUEST_TYPE = 'AADHAAR ENQUIRY';
+		    if(TransXpedia.REQUEST_ISOMESSAGE[111] != undefined && TransXpedia.REQUEST_ISOMESSAGE[121] != undefined) {
+			if(TransXpedia.REQUEST_ISOMESSAGE[3] == 'AE0001') {
+                        	TransXpedia.REQUEST_TYPE = 'MULTIPLE AADHAAR ENQUIRY';
+			}else {
+                        	TransXpedia.REQUEST_TYPE = 'AADHAAR ENQUIRY';
+			}
+		    }
                     else 
                         TransXpedia.REQUEST_TYPE = 'ACCOUNT ENQUIRY';
         

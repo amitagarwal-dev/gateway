@@ -41,9 +41,9 @@ function frameResponseMsg(TransXpedia) {
 		if(TransXpedia.ISOMessage[104 != undefined])
 			TransXpedia.ISOMessage[104]	= TransXpedia.REQUEST_ISOMESSAGE[104] +'015008Sreedevi';
 		
-			TransXpedia.ISOMessage[125] = TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6) + '|' + 
-                						  TransXpedia.REQUEST_ISOMESSAGE[37].slice(-6) + 
-                						  TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6);
+			TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(5,10) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,5) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(-2);
+			TransXpedia.ISOMessage[125]   = TransXpedia.ISOMessage[125].slice(-6) + '|' + TransXpedia.ISOMessage[125];
+	
 		
 		if( TransXpedia.REQUEST_TYPE == 'MS')    
           		TransXpedia.ISOMessage[120] 	= Util.MINISTATEMENT;

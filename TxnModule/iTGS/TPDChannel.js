@@ -45,10 +45,9 @@ function frameResponseMsg(TransXpedia) {
                 TransXpedia.ISOMessage[54] 		= Util.BALANCE;
         }
 
-		TransXpedia.ISOMessage[125] = TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6) + '|' + 
-                					  TransXpedia.REQUEST_ISOMESSAGE[37].slice(-6) + 
-                					   TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6);
-												
+		TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(5,10) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,5) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(-2);
+		TransXpedia.ISOMessage[125]   = TransXpedia.ISOMessage[125].slice(-6) + '|' + TransXpedia.ISOMessage[125];
+
         return resolved(TransXpedia);
 	}catch (e) {
 	    return rejected(e);

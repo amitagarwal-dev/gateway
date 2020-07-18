@@ -45,7 +45,7 @@ function frameResponseMsg(TransXpedia) {
 
 		
 			if (TransXpedia.REQUEST_TYPE == 'AE') {
-				TransXpedia.ISOMessage[104] = '593060172286|Satya|A|Adimulam|192873645|593060172287|Amit|A|Agarwal|5678943210|579042165544|Sreedevi|M|N|1789890037';
+				TransXpedia.ISOMessage[104] = '001115593060172286|Satya|A|Adimulam|192873645|593060172287|Amit|A|Agarwal|5678943210|579042165544|Sreedevi|M|N|1789890037';
 				TransXpedia.ISOMessage[102] = 'Sri Manjunatha|776655442211';
 			} else if( TransXpedia.REQUEST_TYPE == 'SF'){
 				TransXpedia.ISOMessage[102] = 'Sri Manjunatha|776655442211';
@@ -73,9 +73,9 @@ function frameResponseMsg(TransXpedia) {
 				}
 			}
 
-			TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6) + '|' +
-                                            TransXpedia.REQUEST_ISOMESSAGE[37].slice(-6) +
-                 	                        TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,6);
+			TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(5,10) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,5) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(-2);
+			TransXpedia.ISOMessage[125]   = TransXpedia.ISOMessage[125].slice(-6) + '|' + TransXpedia.ISOMessage[125];
+	
 			return resolved(TransXpedia);
 		
 		}catch (e) {
@@ -91,7 +91,7 @@ function frameResponseMsg(TransXpedia) {
 function getRequestType(TransXpedia) {
 	return new Promise((resolved, rejected) => { 
 		try {
-			if (TransXpedia.REQUEST_ISOMESSAGE[3] == '010000')
+			if (TransXpedia.REQUEST_ISOMESSAGE[3] == '010000' || TransXpedia.REQUEST_ISOMESSAGE[3] == '150000')
 				TransXpedia.REQUEST_TYPE = 'WITHDRAWAL';
 			else if (TransXpedia.REQUEST_ISOMESSAGE[3] =='310000')
 				TransXpedia.REQUEST_TYPE = 'BE';
