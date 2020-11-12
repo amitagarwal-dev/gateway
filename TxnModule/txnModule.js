@@ -15,7 +15,8 @@ module.exports = {
 		RD   		: require('./ALIVE/RDChannel'),
 		SHG 		: require('./ALIVE/SHGChannel'),
 		SEEDING		: require('./ALIVE/SEEDINGChannel'),
-		AGENTLOGIN	: require('./ALIVE/AGENTLOGINChannel')
+		AGENTLOGIN	: require('./ALIVE/AGENTLOGINChannel'),
+		APY 	        : require('./ALIVE/APYChannel')
 	}
 
 }

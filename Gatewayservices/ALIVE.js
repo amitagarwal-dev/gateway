@@ -49,7 +49,9 @@ function getALIVEChannelType(TransXpedia) {
 			     TransXpedia.CHANNEL = 'SEEDIG';
 			else if(TransXpedia.REQUEST_ISOMESSAGE[125] == 'BCLOGIN')
 				TransXpedia.CHANNEL = 'AGENTLOGIN';
-            else 
+			else if(TransXpedia.REQUEST_ISOMESSAGE[125] == 'APY' || TransXpedia.REQUEST_ISOMESSAGE[125] == 'ACTINFO')
+				TransXpedia.CHANNEL = 'APY';
+            		else 
 			     TransXpedia.CHANNEL = 'TXN';
 		return resolved(TransXpedia);
 	  }catch(e) {

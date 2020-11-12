@@ -1,11 +1,11 @@
 module.exports = 
 {
-    GATEWAYNAME       : 'ITGS',
+    GATEWAYNAME       : 'ALIVE',
     SIMULATORIP       : '127.0.0.1',
     PORT              : 9977,
     KYCPORT	      : 9865,
-    RESPONSECODE      :'00',
-    RESPONSEDELAY     : 70,
+    RESPONSECODE      :'000',
+    RESPONSEDELAY     : 0,
     DELAYEXPIRETIME   : 10,
     
     KYCGATEWAY : {
