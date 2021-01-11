@@ -44,8 +44,14 @@ function frameResponseMsg(TransXpedia) {
 				TransXpedia.ISOMessage[104]    = TransXpedia.ISOMessage[104] + '015008sreedevi';
 		}
 
-		if(TransXpedia.ISOMessage[0] != '0430' || TransXpedia.REQUEST_TYPE != 'CDA')
+		if(TransXpedia.ISOMessage[0] != '0430' || TransXpedia.REQUEST_TYPE != 'CDA'){
 			TransXpedia.ISOMessage[62]     = Util.AUTHCODE;
+		}
+
+		if(TransXpedia.ISOMessage[0] != '0430' || TransXpedia.REQUEST_TYPE != 'BFD'){
+			TransXpedia.ISOMessage[62]     = Util.BFD_AUTHCODE;
+		}
+		
 	      
 		if( TransXpedia.REQUEST_TYPE == 'MS') {    
 		 	TransXpedia.ISOMessage[120] 	= Util.MINISTATEMENT;
