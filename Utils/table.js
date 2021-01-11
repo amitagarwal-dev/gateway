@@ -10,7 +10,7 @@ const commType		= require('./commType')
 const LINE_LIMIT = 30;
 /* *************************************************************************** */
 
-const Webfunctions = { IASK     : ['otp', 'ekyc', 'bio_auth', 'aadhaarlinkstatus' ],
+const Webfunctions = { IASK     : ['otp', 'ekyc', 'bio_auth', 'aadhaarlinkstatus', 'getrefno', 'getaadhaarno' ],
 					   ALIVEKYC : ['otp', 'ekyc', 'aadhaarkinkstatus'] };
 
 /* *************************************************************************** */

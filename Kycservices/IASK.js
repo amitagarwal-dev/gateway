@@ -9,6 +9,8 @@ const WebServices = {'/iask/otp' 	 		  	   : ProcessOTPrequest,
 					 '/iask/ekyc'				   : ProcessKYCRequest,
 					 '/iask/bio_auth' 		  	   : ProcessBioAuthRequest,
 					 '/iask/aadhaarlinkstatus' 	   : ProcessAadharLinkingStatus,
+					 '/iask/getrefno'	   : ProcessAadhaarValutRefno,
+					 '/iask/getaadhaarno'  : ProcessAadhaarValutAadhaarNo
 					}
 /* ********************************************************************* */
 
@@ -114,8 +116,6 @@ function ProcessKYCRequest(_ClientReq, _ClientResp, _ClientData)
 	});
 }
 
-
-
 function ProcessBioAuthRequest(_ClientReq, _ClientResp, _ClientData) {
 
 	console.log('\n----------------- BIO-AUTH REQUEST FROM iPOS -------------------\n');
@@ -147,7 +147,6 @@ function ProcessBioAuthRequest(_ClientReq, _ClientResp, _ClientData) {
 	});
 }
 
-
 function ProcessAadharLinkingStatus(_ClientReq, _ClientResp, _ClientData) {
 
 	console.log('\n-------------- AADHAR LINKING STATUS REQUEST FROM iPOS ------------------\n');
@@ -178,3 +177,94 @@ function ProcessAadharLinkingStatus(_ClientReq, _ClientResp, _ClientData) {
 			}
 	});
 }
+
+function ProcessAadhaarValutRefno(_ClientReq, _ClientResp, _ClientData) {
+
+	console.log('\n-------------- AADHARVALUT GET REFERENCE NUMBER REQUEST FROM iPOS ------------------\n');
+
+	console.log("Data Recieved : ", _ClientData.toString());
+	var inputData = JSON.parse(_ClientData);
+
+	let filename = '';
+
+	if(appConfig.RESPONSECODE != '00')
+		filename = './Kycservices/RespFiles/IASK/Aadhaarvalutref.failed';
+	else
+		filename = './Kycservices/RespFiles/IASK/Aadhaarvalutref.sucess';
+
+
+	var refNo = inputData.aadhaarNo + '-abcdefgh';
+
+	fs.readFile(filename, (e, data) => {
+			if(e) {
+				_ClientResp.writeHead(500, { 'Content-Type': 'text/JSON' });
+				_ClientResp.write("{Error : `AadhaarValut Internal Error` }");
+				_ClientResp.end();
+				console.log("Internal Error in Aadhar Valut Status : ", e);
+			}
+			else {
+
+				if(appConfig.RESPONSECODE == '00') {
+					var filedata = JSON.parse(fs.readFileSync('./AadhaarValut.json'));
+					filedata[refNo] =  inputData.aadhaarNo;
+					fs.writeFileSync('./AadhaarValut.json', JSON.stringify(filedata));
+
+					data = JSON.parse(data);
+					data.aadhaarvalutrefNo = refNo;
+					data = Buffer.from(JSON.stringify(data));
+				}
+				
+        		_ClientResp.writeHead(200, {'Content-Type': 'text/plain'});
+        		_ClientResp.write(data);
+        		_ClientResp.end();
+				console.log('\n------------- AADHARVALUT GET REFERENCE NUMBER RESPONSE TO iPOS -------------\n');
+        		console.log(data.toString());
+			}
+	});
+}
+
+function ProcessAadhaarValutAadhaarNo(_ClientReq, _ClientResp, _ClientData) {
+
+	console.log('\n-------------- AADHARVALUT GET AADHAAR NUMBER REQUEST FROM iPOS ------------------\n');
+
+    console.log("Data Recieved : ", _ClientData.toString());
+
+	let filename = '';
+
+	if(appConfig.RESPONSECODE != '00')
+		filename = './Kycservices/RespFiles/IASK/AadharvalutaadhaarNo.failed';
+	else
+		filename = './Kycservices/RespFiles/IASK/AadharvalutaadhaarNo.sucess';
+
+	var inputData = JSON.parse(_ClientData);
+
+	var aadhaarRefno = inputData.aadhaarvalutrefNo;
+
+	fs.readFile(filename, (e, data) => {
+			if(e) {
+				_ClientResp.writeHead(500, { 'Content-Type': 'text/JSON' });
+				_ClientResp.write("{Error : `Aadhaar Valut Internal Error` }");
+				_ClientResp.end();
+				console.log("Internal Error in Aadhar Valut Status : ", e);
+			}
+			else {
+				
+				if(appConfig.RESPONSECODE == '00') {
+					var filedata = JSON.parse(fs.readFileSync('./AadhaarValut.json'));
+					var aadhaarNo = filedata[aadhaarRefno];
+
+					data = JSON.parse(data);
+					data.aadhaarNo = aadhaarNo;
+					data = Buffer.from(JSON.stringify(data));
+				}
+
+        		_ClientResp.writeHead(200, {'Content-Type': 'text/plain'});
+        		_ClientResp.write(data);
+        		_ClientResp.end();
+				console.log('\n------------- AADHARVALUT GET AADHAARNO  RESPONSE TO iPOS -------------\n');
+        		console.log(data.toString());
+			}
+	});
+}
+
+
