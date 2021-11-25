@@ -2,7 +2,7 @@ module.exports =
 {
     GATEWAYNAME       : 'ITGS',
     SIMULATORIP       : '127.0.0.1',
-    PORT              : 9977,
+    PORT              : 4444,
     KYCPORT	      : 9865,
     RESPONSECODE      :'00',
     RESPONSEDELAY     : 0,

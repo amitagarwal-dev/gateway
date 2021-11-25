@@ -41,7 +41,7 @@ function frameResponseMsg(TransXpedia) {
 		if(TransXpedia.ISOMessage[0] != '0430' || TransXpedia.REQUEST_TYPE != 'AUTHENTICATION' || TransXpedia.REQUEST_TYPE != 'BAV' ) {
 			TransXpedia.ISOMessage[54] 	   = Util.BALANCE;
 			if(TransXpedia.ISOMessage[104] != undefined)
-				TransXpedia.ISOMessage[104]    = TransXpedia.ISOMessage[104] + '015008sreedevi';
+				TransXpedia.ISOMessage[104]    = TransXpedia.ISOMessage[104] + '015008sreedevi085005Y|Y|N';
 		}
 
 		if(TransXpedia.ISOMessage[0] != '0430' || TransXpedia.REQUEST_TYPE != 'CDA'){
@@ -62,7 +62,7 @@ function frameResponseMsg(TransXpedia) {
 			TransXpedia.ISOMessage[120] 	= '080012012345678912002UID046014satya adimulam080012112233445566';
 			TransXpedia.ISOMessage[38]		= '012345';
 			if(TransXpedia.ISOMessage[104] != undefined)
-				TransXpedia.ISOMessage[104]    = TransXpedia.ISOMessage[104] + '015008sreedevi'; 
+				TransXpedia.ISOMessage[104]    = TransXpedia.ISOMessage[104] + '015008sreedevi085005Y|Y|N'; 
 		}
 
 		TransXpedia.ISOMessage[125]   = TransXpedia.REQUEST_ISOMESSAGE[37].slice(5,10) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(0,5) + TransXpedia.REQUEST_ISOMESSAGE[37].slice(-2);
